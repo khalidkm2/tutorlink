@@ -32,6 +32,7 @@ app.use('/api/profiles', require('./routes/profileRoutes'));
 app.use('/api/requests', require('./routes/requestRoutes'));
 app.use('/api/reviews', require('./routes/reviewRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
+app.use('/api/recommendations', require('./routes/recommendationRoutes'));
 
 // Global error handling middleware
 app.use((err, req, res, next) => {

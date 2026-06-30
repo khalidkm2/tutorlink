@@ -24,10 +24,10 @@
 - `[x]` Implement static file upload configuration for certificates
 
 ## Phase 3: Algorithms & Recommendation Engine
-- `[ ]` Implement `server/algorithms/Haversine.js`
-- `[ ]` Implement `server/algorithms/KMeans.js`
-- `[ ]` Implement `server/algorithms/RecommendationEngine.js`
-- `[ ]` Connect recommendation algorithms to API endpoints (`server/routes/recommendationRoutes.js`)
+- `[x]` Implement `server/algorithms/Haversine.js`
+- `[x]` Implement `server/algorithms/KMeans.js`
+- `[x]` Implement `server/algorithms/RecommendationEngine.js`
+- `[x]` Connect recommendation algorithms to API endpoints (`server/routes/recommendationRoutes.js`)
 
 ## Phase 4: Frontend Development
 - `[ ]` Initialize Vite React App with Tailwind CSS in `client/`
