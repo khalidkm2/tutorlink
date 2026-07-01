@@ -30,12 +30,12 @@
 - `[x]` Connect recommendation algorithms to API endpoints (`server/routes/recommendationRoutes.js`)
 
 ## Phase 4: Frontend Development
-- `[ ]` Initialize Vite React App with Tailwind CSS in `client/`
-- `[ ]` Set up routing and context providers (Authentication, Notifications)
-- `[ ]` Build layouts and common components (Navbar, Sidebar, MapView)
-- `[ ]` Build authentication screens (Login/Register for Tutors and Students)
-- `[ ]` Build Student Dashboard, Tutor Search, and recommendation view
-- `[ ]` Build Tutor Dashboard (Profile update, availability scheduler, requests manager)
+- `[x]` Initialize Vite React App with Tailwind CSS in `client/`
+- `[x]` Set up routing and context providers (Authentication, Notifications)
+- `[x]` Build layouts and common components (Navbar, Sidebar, MapView)
+- `[x]` Build authentication screens (Login/Register for Tutors and Students)
+- `[x]` Build Student Dashboard, Tutor Search, and recommendation view
+- `[/]` Build Tutor Dashboard (Profile update, availability scheduler, requests manager)
 - `[ ]` Build Admin Dashboard (Verify tutors, system stats)
 
 ## Phase 5: Verification & Walkthrough
