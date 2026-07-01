@@ -50,6 +50,9 @@ const TutorProfileSchema = new mongoose.Schema(
     reviewCount: {
       type: Number,
       default: 0
+    },
+    certificate: {
+      type: String
     }
   },
   {

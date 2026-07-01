@@ -47,6 +47,22 @@ export default function SearchTutors() {
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const commonSlots = ['10:00-12:00', '12:00-14:00', '14:00-16:00', '16:00-18:00', '18:00-20:00', '20:00-22:00'];
 
+  const normalizeRecommendation = (item) => {
+    const tutor = item?.tutor || {};
+    const profileDetails = tutor?.profileDetails || {};
+    const scores = item?.scores || {};
+
+    return {
+      tutor,
+      profileDetails,
+      distance: Number(item?.distance) || 0,
+      scores,
+      totalScore: Number(scores.totalScore ?? 0),
+    };
+  };
+
+  const normalizedResults = results.map(normalizeRecommendation);
+
   const toggleDaySelection = (day) => {
     setSelectedDays(prev => 
       prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]
@@ -96,7 +112,7 @@ export default function SearchTutors() {
     try {
       const data = await recommendationAPI.getRecommendations(criteria);
       if (data.success) {
-        setResults(data.data || []);
+        setResults(Array.isArray(data.data) ? data.data : []);
       } else {
         setErrorMessage(data.message || 'Matching failed');
       }
@@ -123,11 +139,14 @@ export default function SearchTutors() {
     setBookingLoading(true);
     setBookingError('');
 
+    const tutorData = selectedTutor.tutor || {};
+    const profileData = selectedTutor.profileDetails || {};
+
     const payload = {
-      tutorId: selectedTutor.user?._id,
+      tutorId: tutorData._id,
       subject: subject.trim(),
       classGrade: profile?.classGrade || 'Grade 10',
-      hourlyFee: parseFloat(selectedTutor.profileDetails?.hourlyFee),
+      hourlyFee: parseFloat(profileData.hourlyFee),
       message: bookingMessage.trim()
     };
 
@@ -169,7 +188,7 @@ export default function SearchTutors() {
 
       {errorMessage && (
         <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-4 rounded-xl flex items-start space-x-3 text-sm">
-          <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -326,7 +345,7 @@ export default function SearchTutors() {
 
         {/* Map View Column */}
         <div className="lg:col-span-2 space-y-6">
-          <MapView center={getMapCenter()} tutors={results} height="480px" />
+          <MapView center={getMapCenter()} tutors={normalizedResults} height="480px" />
           
           <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-between text-xs sm:text-sm text-slate-400">
             <div className="flex items-center space-x-2">
@@ -371,9 +390,9 @@ export default function SearchTutors() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {results.map((tutor, index) => (
+            {normalizedResults.map((tutor, index) => (
               <div 
-                key={tutor.user?._id}
+                key={tutor.tutor?._id || tutor.tutor?.email || index}
                 className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-colors relative overflow-hidden group"
               >
                 {/* Ranking Tag */}
@@ -386,15 +405,15 @@ export default function SearchTutors() {
                   <div className="flex items-start justify-between mb-4 pr-12">
                     <div>
                       <h3 className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
-                        {tutor.user?.name}
+                        {tutor.tutor?.name}
                       </h3>
                       <div className="flex items-center space-x-2 mt-1">
                         <span className="bg-slate-950 text-amber-500 px-2 py-0.5 rounded-lg text-xs font-bold flex items-center space-x-1 border border-slate-800">
                           <Star className="h-3 w-3 fill-amber-500 stroke-none" />
-                          <span>★ {tutor.profileDetails?.averageRating || 'Unrated'}</span>
+                          <span>★ {tutor.profileDetails?.averageRating ?? 'Unrated'}</span>
                         </span>
                         <span className="text-xs text-slate-500">
-                          ({tutor.profileDetails?.reviewCount || 0} reviews)
+                          ({tutor.profileDetails?.reviewCount ?? 0} reviews)
                         </span>
                       </div>
                     </div>
@@ -404,11 +423,11 @@ export default function SearchTutors() {
                   <div className="grid grid-cols-3 gap-3 bg-slate-950 p-3 rounded-xl border border-slate-850/60 mb-4 text-xs">
                     <div className="text-center">
                       <span className="block text-slate-500 font-medium mb-0.5">Rate</span>
-                      <span className="font-bold text-emerald-400 text-sm">${tutor.profileDetails?.hourlyFee}/hr</span>
+                      <span className="font-bold text-emerald-400 text-sm">${tutor.profileDetails?.hourlyFee ?? 'N/A'}/hr</span>
                     </div>
                     <div className="text-center border-x border-slate-800">
                       <span className="block text-slate-500 font-medium mb-0.5">Experience</span>
-                      <span className="font-bold text-slate-300 text-sm">{tutor.profileDetails?.experience} Yrs</span>
+                      <span className="font-bold text-slate-300 text-sm">{tutor.profileDetails?.experience ?? 'N/A'} Yrs</span>
                     </div>
                     <div className="text-center">
                       <span className="block text-slate-500 font-medium mb-0.5">Distance</span>
@@ -420,36 +439,48 @@ export default function SearchTutors() {
                   <div className="mb-4 space-y-1.5">
                     <div className="flex justify-between items-center text-xs">
                       <span className="text-slate-400">Weighted Match Score:</span>
-                      <span className="font-bold text-indigo-400">{(tutor.score * 100).toFixed(0)}% Match</span>
+                      <span className="font-bold text-indigo-400">{(tutor.totalScore * 100).toFixed(0)}% Match</span>
                     </div>
                     <div className="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden">
                       <div 
-                        className="bg-gradient-to-r from-indigo-500 to-violet-500 h-1.5 rounded-full" 
-                        style={{ width: `${tutor.score * 100}%` }}
+                        className="bg-linear-to-r from-indigo-500 to-violet-500 h-1.5 rounded-full"
+                        style={{ width: `${Math.max(0, Math.min(100, tutor.totalScore * 100))}%` }}
                       ></div>
                     </div>
                   </div>
 
-                  {/* Matching reasons details */}
-                  {tutor.matchReasons && tutor.matchReasons.length > 0 && (
-                    <div className="mb-4">
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Match Compatibility Check</p>
-                      <div className="flex flex-wrap gap-1.5 text-[10px]">
-                        {tutor.matchReasons.map((reason, idx) => (
-                          <span 
-                            key={idx} 
-                            className="bg-indigo-600/10 border border-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-md font-semibold"
-                          >
-                            {reason}
-                          </span>
-                        ))}
-                      </div>
+                  {/* Score breakdown */}
+                  <div className="mb-4 grid grid-cols-2 gap-2 text-[10px] text-slate-400">
+                    <div className="bg-slate-950 border border-slate-850 rounded-lg px-2.5 py-2">
+                      Distance: <span className="text-slate-200 font-semibold">{(tutor.scores.distanceScore ?? 0).toFixed(2)}</span>
                     </div>
-                  )}
+                    <div className="bg-slate-950 border border-slate-850 rounded-lg px-2.5 py-2">
+                      Availability: <span className="text-slate-200 font-semibold">{(tutor.scores.availabilityScore ?? 0).toFixed(2)}</span>
+                    </div>
+                    <div className="bg-slate-950 border border-slate-850 rounded-lg px-2.5 py-2">
+                      Budget: <span className="text-slate-200 font-semibold">{(tutor.scores.budgetScore ?? 0).toFixed(2)}</span>
+                    </div>
+                    <div className="bg-slate-950 border border-slate-850 rounded-lg px-2.5 py-2">
+                      Experience: <span className="text-slate-200 font-semibold">{(tutor.scores.experienceScore ?? 0).toFixed(2)}</span>
+                    </div>
+                  </div>
+
+                  <div className="mb-4 flex flex-wrap gap-2 text-[10px]">
+                    {tutor.tutor?.profileDetails?.subjects?.map((subjectItem) => (
+                      <span key={subjectItem} className="bg-indigo-600/10 border border-indigo-500/20 text-indigo-300 px-2 py-1 rounded-md font-semibold">
+                        {subjectItem}
+                      </span>
+                    ))}
+                    {tutor.tutor?.profileDetails?.classes?.map((classItem) => (
+                      <span key={classItem} className="bg-slate-800/70 border border-slate-700 text-slate-300 px-2 py-1 rounded-md font-semibold">
+                        Class {classItem}
+                      </span>
+                    ))}
+                  </div>
 
                   <div className="text-xs text-slate-400 leading-relaxed mb-4 border-t border-slate-850/60 pt-3">
                     <span className="font-bold text-slate-300 block mb-1">Qualifications:</span>
-                    <p className="line-clamp-2">{tutor.profileDetails?.qualifications}</p>
+                    <p className="leading-relaxed">{tutor.profileDetails?.qualifications || 'No qualifications listed.'}</p>
                   </div>
                 </div>
 
@@ -489,12 +520,12 @@ export default function SearchTutors() {
               <form onSubmit={handleSendBooking} className="space-y-6">
                 <div>
                   <h3 className="text-xl font-bold text-white">Book Tutor Request</h3>
-                  <p className="text-sm text-slate-400">Initiate match with <span className="font-bold text-indigo-400">{selectedTutor.user?.name}</span></p>
+                  <p className="text-sm text-slate-400">Initiate match with <span className="font-bold text-indigo-400">{selectedTutor.tutor?.name}</span></p>
                 </div>
 
                 {bookingError && (
                   <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-center space-x-2 text-xs">
-                    <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                    <AlertCircle className="h-4 w-4 shrink-0" />
                     <span>{bookingError}</span>
                   </div>
                 )}
@@ -506,7 +537,7 @@ export default function SearchTutors() {
                   </div>
                   <div>
                     <span className="block text-slate-500 font-semibold mb-0.5 text-xs uppercase tracking-wider">Hourly Rate</span>
-                    <span className="font-bold text-emerald-400">${selectedTutor.profileDetails?.hourlyFee}/hr</span>
+                    <span className="font-bold text-emerald-400">${selectedTutor.profileDetails?.hourlyFee ?? 'N/A'}/hr</span>
                   </div>
                   <div>
                     <span className="block text-slate-500 font-semibold mb-0.5 text-xs uppercase tracking-wider">Your Grade</span>
@@ -542,7 +573,7 @@ export default function SearchTutors() {
                   <button
                     type="submit"
                     disabled={bookingLoading}
-                    className="flex-grow flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
+                    className="grow flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
                   >
                     {bookingLoading ? (
                       <>

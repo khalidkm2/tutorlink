@@ -13,6 +13,9 @@ import TutorDashboard from './pages/TutorDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import SearchTutors from './pages/SearchTutors';
 import Bookings from './pages/Bookings';
+import TutorSchedule from './pages/TutorSchedule';
+import TutorRequests from './pages/TutorRequests';
+import PendingTutors from './pages/PendingTutors';
 
 // Page not found fallback
 function NotFoundPage() {
@@ -165,10 +168,7 @@ export default function App() {
             path="/tutor-dashboard/schedule"
             element={
               <ProtectedRoute allowedRoles={['tutor']}>
-                <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl">
-                  <h2 className="text-xl font-bold mb-2">Availability Schedule Planner</h2>
-                  <p className="text-slate-400 text-sm">Manage slot times and days of the week.</p>
-                </div>
+                <TutorSchedule />
               </ProtectedRoute>
             }
           />
@@ -176,10 +176,7 @@ export default function App() {
             path="/tutor-dashboard/requests"
             element={
               <ProtectedRoute allowedRoles={['tutor']}>
-                <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl">
-                  <h2 className="text-xl font-bold mb-2">Tuition Request Review</h2>
-                  <p className="text-slate-400 text-sm">Approve or reject booking requests from students.</p>
-                </div>
+                <TutorRequests />
               </ProtectedRoute>
             }
           />
@@ -197,10 +194,7 @@ export default function App() {
             path="/admin-dashboard/pending"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl">
-                  <h2 className="text-xl font-bold mb-2">Pending Tutors Queue</h2>
-                  <p className="text-slate-400 text-sm">Approve certificates and activate tutor profiles.</p>
-                </div>
+                <PendingTutors />
               </ProtectedRoute>
             }
           />

@@ -130,6 +130,7 @@ class KMeansClustering {
 
     // 5. Partition raw tutor documents by their final cluster indices
     const clusters = Array(actualK).fill(null).map(() => []);
+    console.log(`K-Means completed in ${iteration} iterations. Final cluster assignments:`, assignments);
     for (let i = 0; i < tutors.length; i++) {
       const clusterIdx = assignments[i];
       clusters[clusterIdx].push(tutors[i]);

@@ -62,7 +62,8 @@ const updateTutorProfile = async (req, res) => {
     hourlyFee,
     experience,
     qualifications,
-    availability
+    availability,
+    certificate
   } = req.body;
 
   try {
@@ -91,6 +92,7 @@ const updateTutorProfile = async (req, res) => {
     if (experience !== undefined) profileUpdates.experience = experience;
     if (qualifications) profileUpdates.qualifications = qualifications;
     if (availability) profileUpdates.availability = availability;
+    if (certificate) profileUpdates.certificate = certificate;
 
     const profile = await TutorProfile.findOneAndUpdate(
       { userId: req.user._id },

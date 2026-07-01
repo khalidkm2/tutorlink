@@ -35,8 +35,8 @@
 - `[x]` Build layouts and common components (Navbar, Sidebar, MapView)
 - `[x]` Build authentication screens (Login/Register for Tutors and Students)
 - `[x]` Build Student Dashboard, Tutor Search, and recommendation view
-- `[/]` Build Tutor Dashboard (Profile update, availability scheduler, requests manager)
-- `[ ]` Build Admin Dashboard (Verify tutors, system stats)
+- `[x]` Build Tutor Dashboard (Profile update, availability scheduler, requests manager)
+- `[x]` Build Admin Dashboard (Verify tutors, system stats)
 
 ## Phase 5: Verification & Walkthrough
 - `[ ]` Write integration tests for the recommendation engine

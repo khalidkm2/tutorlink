@@ -48,7 +48,8 @@ const updateTutorProfileSchema = z.object({
         required_error: 'Slots array is required for availability'
       })
     })
-  ).optional()
+  ).optional(),
+  certificate: z.string().optional()
 });
 
 module.exports = {
