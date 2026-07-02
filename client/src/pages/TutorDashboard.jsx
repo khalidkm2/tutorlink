@@ -197,7 +197,7 @@ export default function TutorDashboard() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-slate-900">
       {/* Messages */}
       {successMessage && (
         <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-4 rounded-2xl flex items-center space-x-3 text-sm">
@@ -213,24 +213,22 @@ export default function TutorDashboard() {
       )}
 
       {/* Pending Account Alert */}
-      {!user?.isApproved && (
-        <div className="bg-amber-500/10 border border-amber-500/20 text-amber-400 p-4 rounded-2xl flex items-start space-x-3 text-sm">
-          <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" />
-          <div>
-            <span className="font-bold">Profile Pending Verification: </span>
-            Your account is currently waiting for administrator approval. Once approved, your profile will join the dynamic K-Means match cluster and receive student booking requests.
-          </div>
+      <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 p-4 rounded-2xl flex items-start space-x-3 text-sm">
+        <ShieldCheck className="h-5 w-5 flex-shrink-0 mt-0.5" />
+        <div>
+          <span className="font-bold">Tutor Account Active: </span>
+          Your profile is live immediately, included in smart matching, and available to receive student booking requests.
         </div>
-      )}
+      </div>
 
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-violet-900 to-indigo-950 rounded-2xl p-6 md:p-8 border border-violet-500/20 shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="bg-white rounded-[28px] p-6 md:p-8 border border-black/10 shadow-[0_14px_40px_rgba(15,23,42,0.08)] relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-teal-700/5 rounded-full blur-3xl pointer-events-none" />
         <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
             Tutor Panel: Welcome, {user?.name}!
           </h1>
-          <p className="text-slate-300 max-w-xl text-sm leading-relaxed">
+          <p className="text-slate-600 max-w-xl text-sm leading-relaxed">
             Manage your student matching availability, respond to tuition requests, and organize your academic profile here.
           </p>
         </div>

@@ -120,17 +120,17 @@ export default function Bookings() {
   }, {});
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-slate-900">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/10 pb-5">
         <div>
-          <h1 className="text-2xl font-extrabold text-white">My Tuition Bookings</h1>
-          <p className="text-sm text-slate-400">Track your submitted tuition requests and leave reviews upon completion.</p>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">My Tuition Bookings</h1>
+          <p className="text-sm text-slate-600">Track your submitted tuition requests and leave reviews upon completion.</p>
         </div>
         <button
           onClick={fetchRequests}
           disabled={loading}
-          className="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer disabled:opacity-50"
+          className="flex items-center space-x-2 bg-white hover:bg-black/5 border border-black/10 text-slate-700 hover:text-slate-900 px-4 py-2 rounded-2xl text-sm font-semibold transition-colors cursor-pointer disabled:opacity-50 shadow-sm"
         >
           <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
           <span>Refresh</span>
@@ -138,8 +138,8 @@ export default function Bookings() {
       </div>
 
       {errorMessage && (
-        <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-4 rounded-xl flex items-start space-x-3 text-sm">
-          <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+        <div className="bg-orange-50 border border-orange-200 text-orange-800 p-4 rounded-2xl flex items-start space-x-3 text-sm shadow-sm">
+          <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -150,10 +150,10 @@ export default function Bookings() {
           <button
             key={f}
             onClick={() => setActiveFilter(f)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+            className={`px-4 py-2 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
               activeFilter === f
-                ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-600/20'
-                : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-slate-200 hover:border-slate-700'
+                  ? 'bg-teal-700 text-white border-teal-700 shadow-lg shadow-teal-700/15'
+                  : 'bg-white text-slate-600 border-black/10 hover:text-slate-900 hover:border-teal-700/20'
             }`}
           >
             {f === 'all' ? 'All' : f.charAt(0).toUpperCase() + f.slice(1)}
@@ -166,13 +166,13 @@ export default function Bookings() {
 
       {/* Content Area */}
       {loading ? (
-        <div className="py-20 flex flex-col items-center justify-center text-slate-500">
-          <Loader2 className="h-10 w-10 animate-spin text-indigo-500 mb-4" />
+          <div className="py-20 flex flex-col items-center justify-center text-slate-500">
+          <Loader2 className="h-10 w-10 animate-spin text-teal-700 mb-4" />
           <p className="text-sm font-medium">Loading your booking history...</p>
         </div>
       ) : filteredRequests.length === 0 ? (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center text-slate-500 space-y-3">
-          <ClipboardList className="h-12 w-12 mx-auto text-slate-700" />
+        <div className="bg-white border border-black/10 rounded-[28px] p-12 text-center text-slate-500 space-y-3 shadow-sm">
+          <ClipboardList className="h-12 w-12 mx-auto text-slate-400" />
           <p className="text-base font-semibold">
             {activeFilter === 'all'
               ? "No booking requests yet. Use Search & Match to find a tutor!"
@@ -189,22 +189,22 @@ export default function Bookings() {
             return (
               <div
                 key={booking._id}
-                className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 hover:border-slate-700 transition-colors"
+                className="bg-white border border-black/10 rounded-[28px] p-5 sm:p-6 hover:border-teal-700/20 transition-colors shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
               >
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   {/* Left Info block */}
-                  <div className="flex-grow space-y-3">
+                  <div className="grow space-y-3">
                     {/* Tutor + Subject Header */}
                     <div className="flex items-center gap-3">
-                      <div className="bg-indigo-600/10 text-indigo-400 p-2.5 rounded-xl border border-indigo-500/20 flex-shrink-0">
+                      <div className="bg-teal-700/10 text-teal-700 p-2.5 rounded-2xl border border-teal-700/20 shrink-0">
                         <BookOpen className="h-5 w-5" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-white text-base">{booking.subject}</h3>
-                        <p className="text-xs text-slate-400">
-                          Tutor: <span className="text-indigo-400 font-semibold">{tutorName}</span>
+                        <h3 className="font-black text-slate-900 text-base">{booking.subject}</h3>
+                        <p className="text-xs text-slate-600">
+                          Tutor: <span className="text-teal-700 font-semibold">{tutorName}</span>
                           {booking.tutorId?.address && (
-                            <span className="text-slate-600"> — {booking.tutorId.address}</span>
+                            <span className="text-slate-500"> — {booking.tutorId.address}</span>
                           )}
                         </p>
                       </div>
@@ -212,33 +212,33 @@ export default function Bookings() {
 
                     {/* Quick Stats */}
                     <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
-                      <div className="flex items-center space-x-1.5 text-slate-400">
-                        <DollarSign className="h-3.5 w-3.5 text-emerald-500" />
-                        <span><span className="font-bold text-emerald-400">${booking.hourlyFee}/hr</span></span>
+                      <div className="flex items-center space-x-1.5 text-slate-500">
+                        <DollarSign className="h-3.5 w-3.5 text-teal-700" />
+                        <span><span className="font-bold text-teal-700">${booking.hourlyFee}/hr</span></span>
                       </div>
-                      <div className="flex items-center space-x-1.5 text-slate-400">
-                        <ClipboardList className="h-3.5 w-3.5 text-indigo-400" />
-                        <span>Grade: <span className="font-semibold text-slate-300">{booking.classGrade}</span></span>
+                      <div className="flex items-center space-x-1.5 text-slate-500">
+                        <ClipboardList className="h-3.5 w-3.5 text-orange-700" />
+                        <span>Grade: <span className="font-semibold text-slate-800">{booking.classGrade}</span></span>
                       </div>
-                      <div className="flex items-center space-x-1.5 text-slate-400">
+                      <div className="flex items-center space-x-1.5 text-slate-500">
                         <Clock className="h-3.5 w-3.5 text-slate-500" />
-                        <span>Requested: <span className="font-semibold text-slate-300">{new Date(booking.createdAt).toLocaleDateString()}</span></span>
+                        <span>Requested: <span className="font-semibold text-slate-800">{new Date(booking.createdAt).toLocaleDateString()}</span></span>
                       </div>
                     </div>
 
                     {/* Message preview */}
                     {booking.message && (
-                      <div className="bg-slate-950 border border-slate-850/80 rounded-xl px-4 py-2.5 text-xs text-slate-400 flex items-start space-x-2">
-                        <MessageSquare className="h-4 w-4 text-slate-600 flex-shrink-0 mt-0.5" />
+                      <div className="bg-[#fbf8f2] border border-black/10 rounded-2xl px-4 py-2.5 text-xs text-slate-600 flex items-start space-x-2">
+                        <MessageSquare className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
                         <p className="line-clamp-2 leading-relaxed">{booking.message}</p>
                       </div>
                     )}
                   </div>
 
                   {/* Right Status + Actions block */}
-                  <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 flex-shrink-0">
+                  <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 shrink-0">
                     {/* Status Badge */}
-                    <div className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold ${statusCfg.bg} ${statusCfg.border} ${statusCfg.text}`}>
+                    <div className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl border text-xs font-bold ${statusCfg.bg} ${statusCfg.border} ${statusCfg.text}`}>
                       <StatusIcon className="h-3.5 w-3.5" />
                       <span>{statusCfg.label}</span>
                     </div>
@@ -247,7 +247,7 @@ export default function Bookings() {
                     {booking.status === 'completed' && (
                       <button
                         onClick={() => openReviewModal(booking)}
-                        className="flex items-center space-x-1.5 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 hover:border-indigo-500/40 px-3 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                        className="flex items-center space-x-1.5 bg-teal-700/10 hover:bg-teal-700/15 text-teal-700 border border-teal-700/20 hover:border-teal-700/30 px-3 py-2 rounded-2xl text-xs font-bold transition-colors cursor-pointer"
                       >
                         <Star className="h-3.5 w-3.5" />
                         <span>Leave Review</span>
@@ -263,8 +263,8 @@ export default function Bookings() {
 
       {/* Review Modal */}
       {reviewTarget && (
-        <div className="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 relative shadow-2xl">
+        <div className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4 backdrop-blur-[2px]">
+          <div className="w-full max-w-md bg-white border border-black/10 rounded-[28px] p-6 sm:p-8 relative shadow-[0_20px_60px_rgba(15,23,42,0.18)]">
             <button
               onClick={() => setReviewTarget(null)}
               className="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors"
@@ -274,31 +274,31 @@ export default function Bookings() {
 
             {reviewSuccess ? (
               <div className="py-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/20">
+                <div className="w-16 h-16 bg-teal-700/10 text-teal-700 rounded-full flex items-center justify-center mx-auto border border-teal-700/20">
                   <CheckCircle2 className="h-8 w-8" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Review Submitted!</h3>
-                <p className="text-sm text-slate-400">Your {rating}-star review has been recorded. Thank you!</p>
+                <h3 className="text-2xl font-black text-slate-900">Review Submitted!</h3>
+                <p className="text-sm text-slate-600">Your {rating}-star review has been recorded. Thank you!</p>
               </div>
             ) : (
               <form onSubmit={handleSubmitReview} className="space-y-6">
                 <div>
-                  <h3 className="text-xl font-bold text-white">Write a Review</h3>
-                  <p className="text-sm text-slate-400 mt-1">
-                    For <span className="font-bold text-indigo-400">{reviewTarget.tutorId?.name}</span> — {reviewTarget.subject}
+                  <h3 className="text-xl font-black text-slate-900">Write a Review</h3>
+                  <p className="text-sm text-slate-600 mt-1">
+                    For <span className="font-bold text-teal-700">{reviewTarget.tutorId?.name}</span> — {reviewTarget.subject}
                   </p>
                 </div>
 
                 {reviewError && (
-                  <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-center space-x-2 text-xs">
-                    <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                  <div className="bg-orange-50 border border-orange-200 text-orange-800 p-3 rounded-2xl flex items-center space-x-2 text-xs">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
                     <span>{reviewError}</span>
                   </div>
                 )}
 
                 {/* Star Rating Picker */}
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Your Rating
                   </label>
                   <div className="flex space-x-2">
@@ -314,8 +314,8 @@ export default function Bookings() {
                         <Star
                           className={`h-9 w-9 transition-colors ${
                             star <= (hoverRating || rating)
-                              ? 'text-amber-400 fill-amber-400'
-                              : 'text-slate-700 fill-slate-700'
+                              ? 'text-orange-500 fill-orange-500'
+                              : 'text-slate-200 fill-slate-200'
                           }`}
                         />
                       </button>
@@ -326,7 +326,7 @@ export default function Bookings() {
 
                 {/* Comment */}
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Written Comment
                   </label>
                   <textarea
@@ -337,7 +337,7 @@ export default function Bookings() {
                       if (reviewError) setReviewError('');
                     }}
                     placeholder="Describe your overall tutoring experience in at least 5 characters..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none focus:border-indigo-500 text-sm resize-none"
+                    className="w-full bg-[#fbf8f2] border border-black/10 rounded-2xl py-3 px-4 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-700 text-sm resize-none"
                   />
                   <p className="text-[10px] text-slate-600">{comment.length} characters (min 5)</p>
                 </div>
@@ -346,14 +346,14 @@ export default function Bookings() {
                   <button
                     type="button"
                     onClick={() => setReviewTarget(null)}
-                    className="flex-1 bg-slate-800 hover:bg-slate-750 text-white font-semibold py-3 rounded-xl transition-colors border border-slate-700 cursor-pointer"
+                    className="flex-1 bg-[#fbf8f2] hover:bg-black/5 text-slate-900 font-semibold py-3 rounded-2xl transition-colors border border-black/10 cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={reviewLoading}
-                    className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
+                    className="flex-1 bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-2xl transition-colors flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
                   >
                     {reviewLoading ? (
                       <>

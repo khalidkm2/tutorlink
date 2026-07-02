@@ -9,13 +9,10 @@ const createRequest = async (req, res) => {
   const { tutorId, subject, classGrade, hourlyFee, message } = req.body;
 
   try {
-    // Verify target tutor exists and is approved
+    // Verify target tutor exists
     const tutor = await User.findOne({ _id: tutorId, role: 'tutor' });
     if (!tutor) {
       return res.status(404).json({ success: false, message: 'Tutor not found' });
-    }
-    if (!tutor.isApproved) {
-      return res.status(400).json({ success: false, message: 'Tutor is not approved yet to accept requests' });
     }
 
     // Create the request record

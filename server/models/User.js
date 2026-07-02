@@ -46,8 +46,8 @@ const UserSchema = new mongoose.Schema(
     isApproved: {
       type: Boolean,
       default: function () {
-        // Tutors need approval, students/admins are auto-approved
-        return this.role !== 'tutor';
+        // All newly registered accounts are active immediately.
+        return true;
       }
     }
   },

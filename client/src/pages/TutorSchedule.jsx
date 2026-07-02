@@ -187,12 +187,12 @@ export default function TutorSchedule() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-slate-900">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/10 pb-5">
         <div>
-          <h1 className="text-2xl font-extrabold text-white">Availability Scheduler</h1>
-          <p className="text-sm text-slate-400">Configure availability slot parameters used during recommendations calculations.</p>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">Availability Scheduler</h1>
+          <p className="text-sm text-slate-600">Configure availability slot parameters used during recommendations calculations.</p>
         </div>
         <button
           onClick={handleSaveSchedule}

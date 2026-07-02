@@ -26,8 +26,8 @@ const getRecommendations = async (req, res) => {
       lat: req.user.location.coordinates[1]
     };
 
-    // 2. Fetch all approved tutors
-    const tutors = await User.find({ role: 'tutor', isApproved: true });
+    // 2. Fetch all tutors so active tutors appear immediately in smart search.
+    const tutors = await User.find({ role: 'tutor' });
     if (tutors.length === 0) {
       return res.status(200).json({
         success: true,

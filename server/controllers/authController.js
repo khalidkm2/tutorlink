@@ -57,7 +57,8 @@ const registerUser = async (req, res) => {
       password,
       role,
       location,
-      address
+      address,
+      isApproved: true
     });
 
     if (user) {

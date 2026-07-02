@@ -69,9 +69,9 @@ export default function PendingTutors() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-slate-900">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/10 pb-5">
         <div className="flex items-center space-x-3">
           <Link
             to="/admin-dashboard"
@@ -81,8 +81,8 @@ export default function PendingTutors() {
             <ChevronLeft className="h-5 w-5" />
           </Link>
           <div>
-            <h1 className="text-2xl font-extrabold text-white">Pending Verification Queue</h1>
-            <p className="text-sm text-slate-400">Evaluate registrations, inspect certificate files, and activate tutor accounts.</p>
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">Pending Verification Queue</h1>
+            <p className="text-sm text-slate-600">Tutor accounts activate automatically. This page now acts as a legacy profile review view.</p>
           </div>
         </div>
         <button
@@ -98,13 +98,13 @@ export default function PendingTutors() {
       {/* Messages */}
       {successMessage && (
         <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-4 rounded-xl flex items-center space-x-3 text-sm">
-          <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
+          <CheckCircle2 className="h-5 w-5 shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
       {errorMessage && (
         <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-4 rounded-xl flex items-start space-x-3 text-sm">
-          <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -118,9 +118,9 @@ export default function PendingTutors() {
       ) : pendingTutors.length === 0 ? (
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center text-slate-500 space-y-3 shadow-lg shadow-slate-950/50">
           <ShieldCheck className="h-12 w-12 mx-auto text-emerald-500/30" />
-          <p className="text-base font-semibold text-slate-400">All Tutor Profiles Verified!</p>
+          <p className="text-base font-semibold text-slate-400">No pending tutor approvals</p>
           <p className="text-xs text-slate-650 max-w-sm mx-auto leading-relaxed">
-            There are no pending tutor registration applications waiting in the administrator verification queue.
+            Tutor registrations are approved automatically, so there is no admin verification queue to process.
           </p>
         </div>
       ) : (
@@ -137,12 +137,12 @@ export default function PendingTutors() {
               >
                 {/* Profile brief */}
                 <div className="flex flex-col lg:flex-row justify-between lg:items-start gap-6">
-                  <div className="space-y-4 flex-grow">
+                  <div className="space-y-4 grow">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                       <h3 className="font-extrabold text-white text-lg">{tutorUser.name}</h3>
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] bg-slate-950 border border-slate-850 px-2 py-0.5 rounded font-mono text-slate-400">{tutorUser.email}</span>
-                        <span className="text-[9px] bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Awaiting Verification</span>
+                        <span className="text-[9px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Active</span>
                       </div>
                     </div>
 
@@ -184,7 +184,7 @@ export default function PendingTutors() {
                       </div>
                       {tutorUser.address && (
                         <div className="flex items-start space-x-1.5 pt-1">
-                          <MapPin className="h-4 w-4 text-rose-500 flex-shrink-0 mt-0.5" />
+                          <MapPin className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
                           <p className="text-slate-400">
                             Physical Address: <span className="font-medium text-slate-300">{tutorUser.address}</span>
                           </p>
@@ -193,7 +193,7 @@ export default function PendingTutors() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-stretch sm:flex-row lg:flex-col gap-3 min-w-[200px] flex-shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-850">
+                  <div className="flex flex-col items-stretch sm:flex-row lg:flex-col gap-3 min-w-50 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-850">
                     <button
                       onClick={() => handleApproveTutor(tutorUser._id, tutorUser.name)}
                       disabled={isProcessing}
@@ -207,7 +207,7 @@ export default function PendingTutors() {
                       ) : (
                         <>
                           <CheckCircle2 className="h-4 w-4" />
-                          <span>Verify & Approve Tutor</span>
+                          <span>Mark as Active</span>
                         </>
                       )}
                     </button>
@@ -246,7 +246,7 @@ export default function PendingTutors() {
                         href={tutorProfile.certificate}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center space-x-1.5 bg-slate-905 hover:bg-slate-800 border border-slate-800 text-slate-350 hover:text-white py-2 rounded-xl text-xs font-bold transition-all cursor-pointer mt-3 max-w-[200px]"
+                        className="flex items-center justify-center space-x-1.5 bg-slate-905 hover:bg-slate-800 border border-slate-800 text-slate-350 hover:text-white py-2 rounded-xl text-xs font-bold transition-all cursor-pointer mt-3 max-w-50"
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
                         <span>Inspect Certificate</span>

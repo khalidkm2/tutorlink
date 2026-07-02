@@ -60,21 +60,21 @@ export default function AdminDashboard() {
   const previewList = pendingTutors.slice(0, 3);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-slate-900">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-2xl p-6 md:p-8 border border-slate-800 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-slate-500/5 rounded-full blur-3xl pointer-events-none" />
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+      <div className="bg-white rounded-[28px] p-6 md:p-8 border border-black/10 shadow-[0_14px_40px_rgba(15,23,42,0.08)] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-teal-700/5 rounded-full blur-3xl pointer-events-none" />
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mb-2">
           Admin Console: Welcome, {user?.name}
         </h1>
-        <p className="text-slate-300 max-w-xl text-sm sm:text-base leading-relaxed">
-          Monitor system metrics, evaluate pending tutor applications, verify certificates, and manage the system.
+        <p className="text-slate-600 max-w-xl text-sm sm:text-base leading-relaxed">
+          Monitor system metrics and review active tutor profiles and certificates.
         </p>
       </div>
 
       {errorMessage && (
         <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-4 rounded-xl flex items-start space-x-3 text-sm">
-          <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -122,15 +122,15 @@ export default function AdminDashboard() {
           <div>
             <h3 className="font-bold text-slate-200 text-base flex items-center space-x-2">
               <ShieldCheck className="h-5 w-5 text-indigo-400" />
-              <span>Verification Queue Preview</span>
+              <span>Tutor Directory Preview</span>
             </h3>
-            <p className="text-xs text-slate-500 mt-0.5">Quickly review and approve certificates uploaded by newly registered tutors.</p>
+            <p className="text-xs text-slate-500 mt-0.5">Review tutor profiles and uploaded certificates. Accounts are active as soon as they register.</p>
           </div>
           <Link
             to="/admin-dashboard/pending"
             className="text-xs font-bold text-indigo-400 hover:text-indigo-300 hover:underline flex items-center gap-1 bg-indigo-650/10 hover:bg-indigo-650/20 px-3 py-1.5 rounded-lg border border-indigo-500/20"
           >
-            <span>View Full Queue ({pendingTutors.length})</span>
+            <span>View Legacy Queue ({pendingTutors.length})</span>
             <ExternalLink className="h-3 w-3" />
           </Link>
         </div>
@@ -143,8 +143,8 @@ export default function AdminDashboard() {
         ) : previewList.length === 0 ? (
           <div className="text-center py-8 text-slate-500 text-sm space-y-2">
             <CheckCircle2 className="h-10 w-10 text-emerald-500 mx-auto" />
-            <p className="font-semibold text-slate-400">All caught up!</p>
-            <p className="text-xs text-slate-600">No tutor verification certificates currently pending review.</p>
+            <p className="font-semibold text-slate-400">No pending tutors</p>
+            <p className="text-xs text-slate-600">Tutor accounts are activated immediately, so there is no approval queue to process.</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -181,8 +181,8 @@ export default function AdminDashboard() {
 
                     <div className="flex items-center gap-3">
                       {profile.qualifications && (
-                        <div className="flex items-center gap-1 text-xs text-slate-500 bg-slate-900 px-3 py-2 rounded-lg border border-slate-850 max-w-[200px] truncate" title={profile.qualifications}>
-                          <FileText className="h-4 w-4 text-slate-500 flex-shrink-0" />
+                        <div className="flex items-center gap-1 text-xs text-slate-500 bg-slate-900 px-3 py-2 rounded-lg border border-slate-850 max-w-50 truncate" title={profile.qualifications}>
+                          <FileText className="h-4 w-4 text-slate-500 shrink-0" />
                           <span>{profile.qualifications}</span>
                         </div>
                       )}
@@ -190,7 +190,7 @@ export default function AdminDashboard() {
                       <button
                         onClick={() => handleApproveTutor(userObj._id)}
                         disabled={isProcessing}
-                        className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all cursor-pointer shadow-md shadow-emerald-600/10 border border-emerald-500 disabled:opacity-50 min-w-[90px] flex items-center justify-center"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all cursor-pointer shadow-md shadow-emerald-600/10 border border-emerald-500 disabled:opacity-50 min-w-22.5 flex items-center justify-center"
                       >
                         {isProcessing ? (
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />

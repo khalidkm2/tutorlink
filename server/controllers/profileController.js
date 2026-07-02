@@ -117,10 +117,7 @@ const updateTutorProfile = async (req, res) => {
 // @access  Private/Public
 const getTutors = async (req, res) => {
   try {
-    // If Admin is fetching, let them see all, otherwise students/public only see approved tutors
-    const isApprovedFilter = req.user && req.user.role === 'admin' ? {} : { isApproved: true };
-
-    const tutors = await User.find({ role: 'tutor', ...isApprovedFilter });
+    const tutors = await User.find({ role: 'tutor' });
     
     // Fetch and combine profile details
     const populatedTutors = await Promise.all(
@@ -155,13 +152,6 @@ const getTutorById = async (req, res) => {
     const tutorUser = await User.findById(req.params.id);
     if (!tutorUser || tutorUser.role !== 'tutor') {
       return res.status(404).json({ success: false, message: 'Tutor not found' });
-    }
-
-    // Only allow viewing approved tutors, unless requestor is Admin or the tutor themselves
-    const isOwner = req.user && req.user._id.toString() === tutorUser._id.toString();
-    const isAdmin = req.user && req.user.role === 'admin';
-    if (!tutorUser.isApproved && !isOwner && !isAdmin) {
-      return res.status(403).json({ success: false, message: 'This tutor profile is pending admin approval' });
     }
 
     const profile = await TutorProfile.findOne({ userId: tutorUser._id });

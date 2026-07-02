@@ -206,34 +206,34 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-[#FBFAF7] text-stone-800 flex items-center justify-center p-4 font-sans relative overflow-hidden">
       {/* Decorative Blur Spheres */}
-      <div className="absolute top-10 left-10 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-violet-500/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-10 left-10 w-[500px] h-[500px] bg-teal-100/50 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-amber-100/50 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative z-10 my-8">
+      <div className="w-full max-w-2xl bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-xl shadow-stone-900/5 relative z-10 my-8">
         {/* Logo and title */}
         <div className="flex flex-col items-center mb-8">
-          <Link to="/" className="flex items-center space-x-2 mb-3">
-            <div className="bg-indigo-600 p-2.5 rounded-xl text-white shadow-lg">
+          <Link to="/" className="flex items-center space-x-2 mb-3 group">
+            <div className="bg-teal-700 p-2.5 rounded-xl text-white transition-transform duration-300 group-hover:rotate-6">
               <BookOpen className="h-6 w-6" />
             </div>
-            <span className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
+            <span className="text-2xl font-extrabold tracking-tight text-stone-900">
               TutorLink
             </span>
           </Link>
-          <p className="text-slate-400 text-sm">Join the next-generation tutor recommendation network</p>
+          <p className="text-stone-500 text-sm">Join the next-generation tutor recommendation network</p>
         </div>
 
         {/* Tab Selector for User Role */}
-        <div className="grid grid-cols-2 gap-3 mb-6 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
+        <div className="grid grid-cols-2 gap-3 mb-6 bg-[#FBFAF7] p-1.5 rounded-xl border border-stone-200">
           <button
             type="button"
             onClick={() => handleRoleChange('student')}
-            className={`py-3.5 px-4 rounded-lg font-bold text-sm transition-all duration-200 cursor-pointer ${
+            className={`py-3.5 px-4 rounded-lg font-bold text-sm transition-all duration-300 cursor-pointer ${
               role === 'student'
-                ? 'bg-indigo-600 text-white shadow-lg'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-teal-700 text-white shadow-sm'
+                : 'text-stone-500 hover:text-stone-800'
             }`}
           >
             I am a Student / Parent
@@ -241,10 +241,10 @@ export default function RegisterPage() {
           <button
             type="button"
             onClick={() => handleRoleChange('tutor')}
-            className={`py-3.5 px-4 rounded-lg font-bold text-sm transition-all duration-200 cursor-pointer ${
+            className={`py-3.5 px-4 rounded-lg font-bold text-sm transition-all duration-300 cursor-pointer ${
               role === 'tutor'
-                ? 'bg-indigo-600 text-white shadow-lg'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-teal-700 text-white shadow-sm'
+                : 'text-stone-500 hover:text-stone-800'
             }`}
           >
             I am a Tutor
@@ -253,7 +253,7 @@ export default function RegisterPage() {
 
         {/* General Error Alert */}
         {errorMessage && (
-          <div className="mb-6 bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3.5 rounded-xl flex items-start space-x-2 text-sm">
+          <div className="mb-6 bg-red-50 border border-red-200 text-red-600 p-3.5 rounded-xl flex items-start space-x-2 text-sm animate-fade-in">
             <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
             <span>{errorMessage}</span>
           </div>
@@ -261,14 +261,14 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6" noValidate>
           {/* section 1 */}
-          <h3 className="text-lg font-semibold text-white border-b border-slate-800 pb-2 flex items-center space-x-2">
-            <User className="h-5 w-5 text-indigo-400" />
+          <h3 className="text-lg font-semibold text-stone-900 border-b border-stone-200 pb-2 flex items-center space-x-2">
+            <User className="h-5 w-5 text-teal-700" />
             <span>1. Account Information</span>
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                 Full Name
               </label>
               <input
@@ -276,15 +276,15 @@ export default function RegisterPage() {
                 value={name}
                 onChange={(e) => handleInputChange('name', setName, e.target.value)}
                 placeholder="John Doe"
-                className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                  errors.name ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                  errors.name ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                 }`}
               />
-              {errors.name && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.name}</p>}
+              {errors.name && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.name}</p>}
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                 Email Address
               </label>
               <input
@@ -292,15 +292,15 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => handleInputChange('email', setEmail, e.target.value)}
                 placeholder="john@example.com"
-                className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                  errors.email ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                  errors.email ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                 }`}
               />
-              {errors.email && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.email}</p>}
+              {errors.email && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.email}</p>}
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                 Password
               </label>
               <input
@@ -308,23 +308,23 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => handleInputChange('password', setPassword, e.target.value)}
                 placeholder="Min 6 characters"
-                className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                  errors.password ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                  errors.password ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                 }`}
               />
-              {errors.password && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.password}</p>}
+              {errors.password && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.password}</p>}
             </div>
           </div>
 
           {/* section 2 */}
-          <h3 className="text-lg font-semibold text-white border-b border-slate-800 pb-2 flex items-center space-x-2 pt-2">
-            <MapPin className="h-5 w-5 text-indigo-400" />
+          <h3 className="text-lg font-semibold text-stone-900 border-b border-stone-200 pb-2 flex items-center space-x-2 pt-2">
+            <MapPin className="h-5 w-5 text-teal-700" />
             <span>2. Geospatial Location</span>
           </h3>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                 Physical Street Address
               </label>
               <input
@@ -332,16 +332,16 @@ export default function RegisterPage() {
                 value={address}
                 onChange={(e) => handleInputChange('address', setAddress, e.target.value)}
                 placeholder="123 Main St, Kathmandu"
-                className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                  errors.address ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                  errors.address ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                 }`}
               />
-              {errors.address && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.address}</p>}
+              {errors.address && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.address}</p>}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                   Longitude Coordinates
                 </label>
                 <input
@@ -350,15 +350,15 @@ export default function RegisterPage() {
                   value={longitude}
                   onChange={(e) => handleInputChange('longitude', setLongitude, e.target.value)}
                   placeholder="85.3240"
-                  className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                    errors.longitude ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                  className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                    errors.longitude ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                   }`}
                 />
-                {errors.longitude && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.longitude}</p>}
+                {errors.longitude && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.longitude}</p>}
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                   Latitude Coordinates
                 </label>
                 <input
@@ -367,11 +367,11 @@ export default function RegisterPage() {
                   value={latitude}
                   onChange={(e) => handleInputChange('latitude', setLatitude, e.target.value)}
                   placeholder="27.7172"
-                  className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                    errors.latitude ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                  className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                    errors.latitude ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                   }`}
                 />
-                {errors.latitude && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.latitude}</p>}
+                {errors.latitude && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.latitude}</p>}
               </div>
             </div>
 
@@ -379,7 +379,7 @@ export default function RegisterPage() {
               type="button"
               onClick={handleGetLocation}
               disabled={loading}
-              className="w-full bg-slate-800 hover:bg-slate-750 text-indigo-300 py-3 rounded-xl text-xs font-semibold border border-slate-700 hover:border-slate-600 transition-colors flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
+              className="w-full bg-white hover:bg-amber-50 text-amber-700 py-3 rounded-xl text-xs font-semibold border border-amber-300 hover:border-amber-400 transition-all duration-300 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -396,8 +396,8 @@ export default function RegisterPage() {
           </div>
 
           {/* section 3 */}
-          <h3 className="text-lg font-semibold text-white border-b border-slate-800 pb-2 flex items-center space-x-2 pt-2">
-            <Sparkles className="h-5 w-5 text-indigo-400" />
+          <h3 className="text-lg font-semibold text-stone-900 border-b border-stone-200 pb-2 flex items-center space-x-2 pt-2">
+            <Sparkles className="h-5 w-5 text-teal-700" />
             <span>3. Role-Specific Profile Info</span>
           </h3>
 
@@ -405,7 +405,7 @@ export default function RegisterPage() {
           {role === 'student' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                   Class / Grade Level
                 </label>
                 <input
@@ -413,15 +413,15 @@ export default function RegisterPage() {
                   value={classGrade}
                   onChange={(e) => handleInputChange('classGrade', setClassGrade, e.target.value)}
                   placeholder="e.g. Grade 10"
-                  className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                    errors.classGrade ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                  className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                    errors.classGrade ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                   }`}
                 />
-                {errors.classGrade && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.classGrade}</p>}
+                {errors.classGrade && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.classGrade}</p>}
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                   School Name
                 </label>
                 <input
@@ -429,7 +429,7 @@ export default function RegisterPage() {
                   value={schoolName}
                   onChange={(e) => handleInputChange('schoolName', setSchoolName, e.target.value)}
                   placeholder="e.g. St. Xavier School"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors text-sm"
+                  className="w-full bg-[#FBFAF7] border border-stone-300 rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none focus:border-teal-600 transition-colors duration-200 text-sm"
                 />
               </div>
             </div>
@@ -440,7 +440,7 @@ export default function RegisterPage() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                     Subjects (comma separated)
                   </label>
                   <input
@@ -448,15 +448,15 @@ export default function RegisterPage() {
                     value={subjects}
                     onChange={(e) => handleInputChange('subjects', setSubjects, e.target.value)}
                     placeholder="Mathematics, Physics, Chemistry"
-                    className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                      errors.subjects ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                    className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                      errors.subjects ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                     }`}
                   />
-                  {errors.subjects && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.subjects}</p>}
+                  {errors.subjects && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.subjects}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                     Target Classes (comma separated)
                   </label>
                   <input
@@ -464,15 +464,15 @@ export default function RegisterPage() {
                     value={classes}
                     onChange={(e) => handleInputChange('classes', setClasses, e.target.value)}
                     placeholder="Grade 8, Grade 9, Grade 10"
-                    className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                      errors.classes ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                    className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                      errors.classes ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                     }`}
                   />
-                  {errors.classes && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.classes}</p>}
+                  {errors.classes && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.classes}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                     Hourly Fee (USD)
                   </label>
                   <input
@@ -480,15 +480,15 @@ export default function RegisterPage() {
                     value={hourlyFee}
                     onChange={(e) => handleInputChange('hourlyFee', setHourlyFee, e.target.value)}
                     placeholder="30"
-                    className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                      errors.hourlyFee ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                    className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                      errors.hourlyFee ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                     }`}
                   />
-                  {errors.hourlyFee && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.hourlyFee}</p>}
+                  {errors.hourlyFee && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.hourlyFee}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                     Years of Experience
                   </label>
                   <input
@@ -496,16 +496,16 @@ export default function RegisterPage() {
                     value={experience}
                     onChange={(e) => handleInputChange('experience', setExperience, e.target.value)}
                     placeholder="3"
-                    className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm ${
-                      errors.experience ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                    className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
+                      errors.experience ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                     }`}
                   />
-                  {errors.experience && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.experience}</p>}
+                  {errors.experience && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.experience}</p>}
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
                   Academic Qualifications
                 </label>
                 <textarea
@@ -513,11 +513,11 @@ export default function RegisterPage() {
                   value={qualifications}
                   onChange={(e) => handleInputChange('qualifications', setQualifications, e.target.value)}
                   placeholder="e.g. B.Sc. in Physics, Kathmandu University."
-                  className={`w-full bg-slate-950 border rounded-xl py-3 px-4 text-slate-200 placeholder-slate-700 focus:outline-none transition-colors text-sm resize-none ${
-                    errors.qualifications ? 'border-rose-500 focus:border-rose-500' : 'border-slate-800 focus:border-indigo-500'
+                  className={`w-full bg-[#FBFAF7] border rounded-xl py-3 px-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm resize-none ${
+                    errors.qualifications ? 'border-red-400 focus:border-red-400' : 'border-stone-300 focus:border-teal-600'
                   }`}
                 />
-                {errors.qualifications && <p className="mt-1.5 text-xs text-rose-400"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.qualifications}</p>}
+                {errors.qualifications && <p className="mt-1.5 text-xs text-red-500"><AlertCircle className="h-3 w-3 inline mr-1" />{errors.qualifications}</p>}
               </div>
             </div>
           )}
@@ -525,7 +525,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-4 px-4 rounded-xl font-bold transition-all duration-200 shadow-xl shadow-indigo-600/20 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center space-x-2 mt-4 cursor-pointer"
+            className="w-full bg-teal-700 hover:bg-teal-800 text-white py-4 px-4 rounded-xl font-bold transition-all duration-300 shadow-md shadow-teal-900/10 hover:shadow-lg hover:shadow-teal-900/15 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center space-x-2 mt-4 cursor-pointer"
           >
             {loading ? (
               <>
@@ -539,9 +539,9 @@ export default function RegisterPage() {
         </form>
 
         {/* Bottom Link */}
-        <p className="mt-8 text-center text-sm text-slate-500">
+        <p className="mt-8 text-center text-sm text-stone-500">
           Already have an account?{' '}
-          <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-medium hover:underline">
+          <Link to="/login" className="text-teal-700 hover:text-teal-800 font-medium hover:underline">
             Sign in here
           </Link>
         </p>
