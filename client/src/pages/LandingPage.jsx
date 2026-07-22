@@ -24,9 +24,9 @@ export default function LandingPage() {
             </div>
             <span className="flex flex-col leading-tight">
               <span className="text-xl font-bold tracking-tight text-stone-900">
-                TutorLink Nepal
+                TutorLink 
               </span>
-              <span className="text-[11px] text-stone-400 -mt-0.5">ट्युटर लिंक नेपाल</span>
+              <span className="text-[11px] text-stone-400 -mt-0.5">ट्युटर लिंक </span>
             </span>
           </div>
 
@@ -46,6 +46,12 @@ export default function LandingPage() {
               </Link>
             ) : (
               <>
+               <Link
+                  to="/login"
+                  className="relative text-stone-600 hover:text-stone-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 after:content-[''] after:absolute after:left-3 after:right-3 after:-bottom-0.5 after:h-px after:bg-teal-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                >
+                  About
+                </Link>
                 <Link
                   to="/login"
                   className="relative text-stone-600 hover:text-stone-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 after:content-[''] after:absolute after:left-3 after:right-3 after:-bottom-0.5 after:h-px after:bg-teal-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
@@ -86,7 +92,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="text-stone-500 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Tell us your subject, level and area — from Baneshwor to Butwal — and we'll show you tutors nearest to you, sorted by real distance, not guesswork.
+            Tell us your subject, learning level, and location, and we'll connect you with nearby tutors based on accurate distance for the most relevant matches.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
@@ -230,10 +236,10 @@ export default function LandingPage() {
             <div className="text-3xl sm:text-4xl font-extrabold text-teal-700 mb-1">99.8%</div>
             <div className="text-xs sm:text-sm uppercase tracking-wider text-stone-400 font-semibold">Match Accuracy</div>
           </div>
-          <div className="transition-transform duration-300 hover:-translate-y-1">
+          {/* <div className="transition-transform duration-300 hover:-translate-y-1">
             <div className="text-3xl sm:text-4xl font-extrabold text-amber-600 mb-1">&lt; 5km</div>
             <div className="text-xs sm:text-sm uppercase tracking-wider text-stone-400 font-semibold">Average Match Distance</div>
-          </div>
+          </div> */}
           <div className="transition-transform duration-300 hover:-translate-y-1">
             <div className="text-3xl sm:text-4xl font-extrabold text-stone-700 mb-1">24/7</div>
             <div className="text-xs sm:text-sm uppercase tracking-wider text-stone-400 font-semibold">Dashboard Management</div>

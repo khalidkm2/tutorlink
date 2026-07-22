@@ -182,7 +182,19 @@ export default function RegisterPage() {
           navigate('/student-dashboard');
         }
       } else {
-        setErrorMessage(res.error || 'Registration failed');
+        const fieldErrors = { ...(res.fieldErrors || {}) };
+
+        if (/already exists/i.test(res.error || '')) {
+          fieldErrors.email = fieldErrors.email || 'An account with this email already exists';
+        }
+
+        if (Object.keys(fieldErrors).length > 0) {
+          setErrors(fieldErrors);
+        }
+
+        if (!Object.keys(fieldErrors).length) {
+          setErrorMessage(res.error || 'Registration failed');
+        }
       }
     } catch (err) {
       setErrorMessage('An unexpected server error occurred. Please check network settings.');
@@ -203,13 +215,16 @@ export default function RegisterPage() {
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
+    if (errorMessage) {
+      setErrorMessage('');
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#FBFAF7] text-stone-800 flex items-center justify-center p-4 font-sans relative overflow-hidden">
       {/* Decorative Blur Spheres */}
-      <div className="absolute top-10 left-10 w-[500px] h-[500px] bg-teal-100/50 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-amber-100/50 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-10 left-10 w-125 h-125 bg-teal-100/50 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-125 h-125 bg-amber-100/50 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="w-full max-w-2xl bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-xl shadow-stone-900/5 relative z-10 my-8">
         {/* Logo and title */}
@@ -254,7 +269,7 @@ export default function RegisterPage() {
         {/* General Error Alert */}
         {errorMessage && (
           <div className="mb-6 bg-red-50 border border-red-200 text-red-600 p-3.5 rounded-xl flex items-start space-x-2 text-sm animate-fade-in">
-            <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
             <span>{errorMessage}</span>
           </div>
         )}

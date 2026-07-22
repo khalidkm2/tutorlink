@@ -60,7 +60,19 @@ export default function LoginPage() {
           navigate('/student-dashboard');
         }
       } else {
-        setErrorMessage(res.error || 'Invalid email or password');
+        const fieldErrors = { ...(res.fieldErrors || {}) };
+
+        if (res.error) {
+          fieldErrors.password = fieldErrors.password || res.error;
+        }
+
+        if (Object.keys(fieldErrors).length > 0) {
+          setErrors(fieldErrors);
+        }
+
+        if (!Object.keys(fieldErrors).length || !fieldErrors.password) {
+          setErrorMessage(res.error || 'Invalid email or password');
+        }
       }
     } catch (err) {
       setErrorMessage('An unexpected connection error occurred. Please try again.');
@@ -113,6 +125,7 @@ export default function LoginPage() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                   if (errors.email) setErrors(prev => ({ ...prev, email: '' }));
+                  if (errorMessage) setErrorMessage('');
                 }}
                 placeholder="you@example.com"
                 className={`w-full bg-[#FBFAF7] border rounded-xl py-3 pl-10 pr-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${
@@ -144,6 +157,7 @@ export default function LoginPage() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                   if (errors.password) setErrors(prev => ({ ...prev, password: '' }));
+                  if (errorMessage) setErrorMessage('');
                 }}
                 placeholder="••••••••"
                 className={`w-full bg-[#FBFAF7] border rounded-xl py-3 pl-10 pr-4 text-stone-800 placeholder-stone-400 focus:outline-none transition-colors duration-200 text-sm ${

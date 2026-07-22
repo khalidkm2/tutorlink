@@ -228,13 +228,13 @@ export default function SearchTutors() {
                 <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Max Budget
                 </label>
-                <span className="text-xs font-bold text-orange-700">${maxBudget}/hr</span>
+                <span className="text-xs font-bold text-orange-700"> {maxBudget}/hr</span>
               </div>
               <input
                 type="range"
-                min="10"
-                max="150"
-                step="5"
+                min="200"
+                max="2000"
+                step="100"
                 value={maxBudget}
                 onChange={(e) => setMaxBudget(e.target.value)}
                 className="w-full h-1.5 bg-[#fbf8f2] rounded-lg appearance-none cursor-pointer accent-teal-700"
@@ -423,7 +423,7 @@ export default function SearchTutors() {
                   <div className="grid grid-cols-3 gap-3 bg-[#fbf8f2] p-3 rounded-2xl border border-black/10 mb-4 text-xs">
                     <div className="text-center">
                       <span className="block text-slate-500 font-medium mb-0.5">Rate</span>
-                      <span className="font-bold text-teal-700 text-sm">${tutor.profileDetails?.hourlyFee ?? 'N/A'}/hr</span>
+                      <span className="font-bold text-teal-700 text-sm">Npr {tutor.profileDetails?.hourlyFee ?? 'N/A'}/hr</span>
                     </div>
                     <div className="text-center border-x border-black/10">
                       <span className="block text-slate-500 font-medium mb-0.5">Experience</span>
@@ -537,7 +537,7 @@ export default function SearchTutors() {
                   </div>
                   <div>
                     <span className="block text-slate-500 font-semibold mb-0.5 text-xs uppercase tracking-wider">Hourly Rate</span>
-                    <span className="font-bold text-teal-700">${selectedTutor.profileDetails?.hourlyFee ?? 'N/A'}/hr</span>
+                    <span className="font-bold text-teal-700">Npr {selectedTutor.profileDetails?.hourlyFee ?? 'N/A'}/hr</span>
                   </div>
                   <div>
                     <span className="block text-slate-500 font-semibold mb-0.5 text-xs uppercase tracking-wider">Your Grade</span>

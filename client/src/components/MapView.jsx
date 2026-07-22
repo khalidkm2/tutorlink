@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
-// Red pin for the Student / center location
+// Student Marker (Red)
 const studentIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
@@ -12,7 +12,7 @@ const studentIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-// Indigo pin for matching Tutors
+// Tutor Marker (Violet)
 const tutorIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
@@ -22,80 +22,96 @@ const tutorIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-// Component to dynamically pan the map when the center coordinates change
+// Recenter map whenever center changes
 function RecenterMap({ center }) {
   const map = useMap();
+
   useEffect(() => {
-    if (center && center[0] !== undefined && center[1] !== undefined) {
+    if (center && center.length === 2) {
       map.setView(center, 13);
     }
   }, [center, map]);
+
   return null;
 }
 
-export default function MapView({ center, tutors = [], height = '400px' }) {
-  // Fallback to default Kathmandu coords if center is empty/invalid
-  const mapCenter = (center && center[0] !== undefined && center[1] !== undefined) 
-    ? center 
-    : [27.7172, 85.3240];
+export default function MapView({
+  center,
+  tutors = [],
+  height = '400px'
+}) {
+  const mapCenter =
+    center && center.length === 2
+      ? center
+      : [27.7172, 85.3240];
 
   return (
-    <div 
-      className="w-full rounded-2xl overflow-hidden border border-slate-800 shadow-xl relative z-10" 
+    <div
+      className="w-full rounded-2xl overflow-hidden border border-slate-200 shadow-lg"
       style={{ height }}
     >
       <MapContainer
         center={mapCenter}
         zoom={13}
         scrollWheelZoom={true}
-        style={{ height: '100%', width: '100%', background: '#0f172a' }}
+        style={{
+          height: '100%',
+          width: '100%',
+          background: '#ffffff'
+        }}
       >
-        {/* Dark-themed Map tiles from CartoDB */}
+        {/* Bright OpenStreetMap */}
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          attribution="&copy; OpenStreetMap contributors"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Center / Student Marker */}
-        {center && center[0] !== undefined && center[1] !== undefined && (
+        {/* Student Marker */}
+        {center && center.length === 2 && (
           <Marker position={center} icon={studentIcon}>
-            <Popup className="custom-leaflet-popup">
-              <div className="text-slate-900 text-xs font-semibold p-1">
-                <p className="font-bold border-b pb-1 mb-1">Your Location</p>
-                <p className="text-slate-500 font-normal">Latitude: {center[0]}</p>
-                <p className="text-slate-500 font-normal">Longitude: {center[1]}</p>
+            <Popup>
+              <div className="text-sm">
+                <strong>Your Location</strong>
+                <br />
+                Latitude: {center[0].toFixed(6)}
+                <br />
+                Longitude: {center[1].toFixed(6)}
               </div>
             </Popup>
           </Marker>
         )}
 
-        {/* Tutors Markers */}
-        {tutors.map((tutor) => {
-          // GeoJSON is [longitude, latitude], Leaflet expects [latitude, longitude]
-          const tutorCoords = tutor.user?.location?.coordinates;
-          if (!tutorCoords || tutorCoords.length !== 2) return null;
-          
-          const position = [tutorCoords[1], tutorCoords[0]]; // [lat, lng]
+        {/* Tutor Markers */}
+        {tutors.map((tutor, index) => {
+          const coords = tutor?.tutor?.location?.coordinates;
+
+          if (!coords || coords.length !== 2) return null;
+
+          const position = [coords[1], coords[0]];
 
           return (
-            <Marker 
-              key={tutor.user?._id || tutor.user?.email} 
-              position={position} 
+            <Marker
+              key={tutor.tutor?._id || index}
+              position={position}
               icon={tutorIcon}
             >
-              <Popup className="custom-leaflet-popup">
-                <div className="text-slate-900 text-xs p-1">
-                  <p className="font-bold border-b pb-1 mb-1 text-indigo-700">
-                    {tutor.user?.name}
-                  </p>
-                  <p className="font-medium">Fee: <span className="text-emerald-600 font-bold">${tutor.profileDetails?.hourlyFee}/hr</span></p>
-                  <p className="font-medium">Exp: <span className="text-slate-700">{tutor.profileDetails?.experience} Yrs</span></p>
-                  <p className="font-medium">Rating: <span className="text-amber-500 font-bold">★ {tutor.profileDetails?.averageRating || 'Unrated'}</span></p>
-                  {tutor.distance !== undefined && (
-                    <p className="font-semibold text-slate-500 border-t pt-1 mt-1 text-[10px]">
-                      Distance: {tutor.distance.toFixed(2)} km
-                    </p>
-                  )}
+              <Popup>
+                <div className="text-sm">
+                  <strong>{tutor.tutor?.name}</strong>
+
+                  <br />
+                  Fee: NPR {tutor.profileDetails?.hourlyFee}/hr
+
+                  <br />
+                  Experience: {tutor.profileDetails?.experience} Years
+
+                  <br />
+                  Rating: ★{' '}
+                  {tutor.profileDetails?.averageRating || 'Unrated'}
+
+                  <br />
+                  Distance:{' '}
+                  {tutor.distance?.toFixed(2)} km
                 </div>
               </Popup>
             </Marker>

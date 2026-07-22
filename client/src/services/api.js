@@ -26,10 +26,42 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    const message = error.response?.data?.message || 'Something went wrong';
-    return Promise.reject(new Error(message));
+    return Promise.reject(error);
   }
 );
+
+export const getApiErrorMessage = (error, fallback = 'Something went wrong') => {
+  const responseData = error?.response?.data;
+
+  if (responseData) {
+    if (typeof responseData.message === 'string' && responseData.message.trim()) {
+      return responseData.message;
+    }
+
+    if (Array.isArray(responseData.errors) && responseData.errors.length > 0) {
+      return responseData.errors[0];
+    }
+  }
+
+  if (typeof error?.message === 'string' && error.message.trim()) {
+    return error.message;
+  }
+
+  return fallback;
+};
+
+export const getApiFieldErrors = (error) => {
+  const responseErrors = error?.response?.data?.errors;
+
+  if (!responseErrors || typeof responseErrors !== 'object' || Array.isArray(responseErrors)) {
+    return {};
+  }
+
+  return Object.entries(responseErrors).reduce((acc, [field, value]) => {
+    acc[field] = Array.isArray(value) ? value[0] : String(value);
+    return acc;
+  }, {});
+};
 
 export const authAPI = {
   register: (userData) => api.post('/api/auth/register', userData),
